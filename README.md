@@ -12,7 +12,7 @@ Repository for setting up the general infrastructure for LXC containers and VM's
 Keepass database
 
 ## Hypervisor
-- Promox
+- Proxmox
 
 ## Goals
 Be able to rebuild the infrastructure of my homelab for disaster recovery and manage infrastructure as code
