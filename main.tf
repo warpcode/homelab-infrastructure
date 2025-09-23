@@ -10,6 +10,10 @@ terraform {
       source  = "iSchluff/keepass"
       version = "1.0.1"
     }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.2"
+    }
   }
 }
 
