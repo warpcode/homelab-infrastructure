@@ -97,18 +97,4 @@ variable "homeassistant_version" {
   default     = "16.0"
 }
 
-# =============================================================================
-# KeePass Config
-# =============================================================================
-
-variable "keepass_database_path" {
-  description = "Path to the KeePass database file (.kdbx). Provide securely via TF_VAR or .tfvars."
-  type        = string
-  sensitive   = true
-}
-
-variable "keepass_database_password" {
-  description = "Password for the KeePass database. Provide securely via TF_VAR or .tfvars."
-  type        = string
-  sensitive   = true
-}
+## KeePass variables removed; secrets should be provided via environment or .tfvars

@@ -6,10 +6,6 @@ terraform {
       source  = "telmate/proxmox"
       version = "3.0.2-rc03"
     }
-    keepass = {
-      source  = "iSchluff/keepass"
-      version = "1.0.1"
-    }
     null = {
       source  = "hashicorp/null"
       version = "~> 3.2"
