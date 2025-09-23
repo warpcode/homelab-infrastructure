@@ -1,5 +1,5 @@
 locals {
-  homeassistant_url = "https://github.com/home-assistant/operating-system/releases/download/${var.homeassistant_version}/haos_ova-${var.homeassistant_version}.qcow2.xz"
+  homeassistant_url      = "https://github.com/home-assistant/operating-system/releases/download/${var.homeassistant_version}/haos_ova-${var.homeassistant_version}.qcow2.xz"
   homeassistant_filename = "haos_ova-${var.homeassistant_version}.qcow2.xz"
 }
 
@@ -47,24 +47,24 @@ resource "proxmox_vm_qemu" "homeassistant" {
     type    = "host"
   }
 
-  memory   = 4096
-  balloon  = 2048
+  memory  = 4096
+  balloon = 2048
 
   # OS and Boot Configuration
-  os_type    = "other"
-  bios       = "ovmf"
-  machine    = "q35"
+  os_type = "other"
+  bios    = "ovmf"
+  machine = "q35"
   scsihw  = "virtio-scsi-pci"
 
   # Boot configuration
-  agent    = 0  # QEMU guest agent not available in Home Assistant OS
+  agent    = 0 # QEMU guest agent not available in Home Assistant OS
   onboot   = true
   startup  = "order=1"
   vm_state = "stopped"
 
   # Network configuration
   network {
-    id = 0
+    id     = 0
     model  = "virtio"
     bridge = "vmbr0"
   }
@@ -72,7 +72,7 @@ resource "proxmox_vm_qemu" "homeassistant" {
   # Skip IPv6
   ipconfig0 = "ip=dhcp"
 
-# Console settings
+  # Console settings
   serial {
     id   = 0
     type = "socket"
@@ -83,14 +83,14 @@ resource "proxmox_vm_qemu" "homeassistant" {
     scsi {
       scsi0 {
         disk {
-          backup             = false
-          cache              = "none"
-          discard            = true
-          emulatessd         = true
-          iothread           = true
-          replicate          = true
-          size               = 32
-          storage            = var.proxmox_default_storage
+          backup     = false
+          cache      = "none"
+          discard    = true
+          emulatessd = true
+          iothread   = true
+          replicate  = true
+          size       = 32
+          storage    = var.proxmox_default_storage
         }
       }
     }

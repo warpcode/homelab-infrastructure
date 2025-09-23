@@ -5,7 +5,7 @@
 variable "proxmox_host" {
   description = "Proxmox server hostname/IP (for SSH connection)"
   type        = string
-  default = "192.168.1.20"
+  default     = "192.168.1.20"
 }
 
 variable "proxmox_ssh_user" {
@@ -28,19 +28,19 @@ variable "proxmox_ssh_password" {
 
 variable "proxmox_api_url" {
   description = "Proxmox API URL."
-  type = string
-  default = "https://192.168.1.20:8006/api2/json"
+  type        = string
+  default     = "https://192.168.1.20:8006/api2/json"
 }
 
 variable "proxmox_api_user" {
   description = "Proxmox API user."
-  type = string
-  default = "root@pam"
+  type        = string
+  default     = "root@pam"
 }
 
 variable "proxmox_api_password" {
   description = "Proxmox API password. If null, KeePass will be used."
-  type = string
+  type        = string
   sensitive   = true
 }
 
@@ -59,14 +59,14 @@ variable "proxmox_api_tls_insecure" {
 
 variable "proxmox_default_target_node" {
   description = "Proxmox node to connect to"
-  type = string
-  default = "pve1"
+  type        = string
+  default     = "pve1"
 }
 
 variable "proxmox_default_storage" {
   description = "Storage location for VM"
-  type = string
-  default = "local-lvm"
+  type        = string
+  default     = "local-lvm"
 }
 
 variable "proxmox_default_iso_storage" {
@@ -77,14 +77,14 @@ variable "proxmox_default_iso_storage" {
 
 variable "proxmox_default_lxc_storage" {
   description = "Proxmox default lxc container image"
-  type = string
-  default = "local"
+  type        = string
+  default     = "local"
 }
 
 variable "proxmox_default_lxc_template" {
   description = "Proxmox default lxc container image"
-  type = string
-  default = "debian-12-standard_12.7-1_amd64.tar.zst"
+  type        = string
+  default     = "debian-12-standard_12.7-1_amd64.tar.zst"
 }
 
 # =============================================================================

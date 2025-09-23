@@ -12,8 +12,8 @@ provider "keepass" {
 
 provider "proxmox" {
   # Configuration options
-  pm_api_url  = var.proxmox_api_url
-  pm_user     = var.proxmox_api_user
+  pm_api_url = var.proxmox_api_url
+  pm_user    = var.proxmox_api_user
   # Use proxmox_api_password from main.auto.tfvars
   pm_password = var.proxmox_api_password
   # pm_api_token_id     = var.proxmox_api_token_id
