@@ -81,6 +81,8 @@ terraform init
 make check
 ```
 
+After any changes, `make check` should always be ran.
+
 Plan and apply:
 
 ```bash
