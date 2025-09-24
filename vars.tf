@@ -61,6 +61,12 @@ variable "proxmox_default_cidr" {
   default     = 24
 }
 
+variable "proxmox_default_gateway" {
+  description = "Default gateway IP address for network configuration"
+  type        = string
+  default     = "192.168.1.1"
+}
+
 # variable "proxmox_api_token_id" {
 #     type = string
 # }
@@ -97,6 +103,12 @@ variable "proxmox_default_lxc_template" {
   description = "Proxmox default lxc container image"
   type        = string
   default     = "debian-12-standard_12.12-1_amd64.tar.zst"
+}
+
+variable "proxmox_default_lxc_storage_size" {
+  description = "Default storage size for LXC containers"
+  type        = string
+  default     = "8G"
 }
 
 # =============================================================================
