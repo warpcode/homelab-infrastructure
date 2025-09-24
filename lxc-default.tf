@@ -13,7 +13,7 @@ resource "null_resource" "download_lxc_template" {
   provisioner "remote-exec" {
     inline = [
       "pveam update",
-      "pveam download ${var.proxmox_default_lxc_storage} ${var.proxmox_default_lxc_template}"
+      "pveam list ${var.proxmox_default_lxc_storage} | awk '{print $1}' | grep -qFx \"${local.proxmox_default_lxc_container_template}\" || pveam download ${var.proxmox_default_lxc_storage} ${var.proxmox_default_lxc_template}"
     ]
   }
 
