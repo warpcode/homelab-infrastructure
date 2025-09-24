@@ -29,4 +29,10 @@ resource "proxmox_lxc" "docker_lxc" {
     bridge = "vmbr0"
     ip     = "dhcp"
   }
+
+  lifecycle {
+    ignore_changes = [
+      ostemplate,
+    ]
+  }
 }
