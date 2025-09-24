@@ -49,6 +49,18 @@ variable "proxmox_api_tls_insecure" {
   type        = bool
 }
 
+variable "proxmox_default_ip_prefix" {
+  description = "Default IP address prefix (first three octets)"
+  type        = string
+  default     = "192.168.1."
+}
+
+variable "proxmox_default_cidr" {
+  description = "Default CIDR value for network configuration"
+  type        = number
+  default     = 24
+}
+
 # variable "proxmox_api_token_id" {
 #     type = string
 # }
