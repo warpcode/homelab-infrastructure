@@ -84,7 +84,7 @@ variable "proxmox_default_lxc_storage" {
 variable "proxmox_default_lxc_template" {
   description = "Proxmox default lxc container image"
   type        = string
-  default     = "debian-12-standard_12.7-1_amd64.tar.zst"
+  default     = "debian-12-standard_12.12-1_amd64.tar.zst"
 }
 
 # =============================================================================
