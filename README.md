@@ -40,8 +40,9 @@ Goal: allow quick rebuild and management of homelab infra for disaster recovery 
 ## Configuration
 Key variables (see `vars.tf` for full list and defaults):
 - Proxmox API: `proxmox_api_url`, `proxmox_api_user`, `proxmox_api_password`, `proxmox_api_tls_insecure`
-- Proxmox target/storage: `proxmox_default_target_node`, `proxmox_default_storage`, `proxmox_default_iso_storage`, `proxmox_default_lxc_storage`
+- Proxmox target/storage: `proxmox_default_target_node`, `proxmox_default_storage`, `proxmox_default_iso_storage`, `proxmox_default_lxc_storage`, `proxmox_default_lxc_storage_size`
 - LXC template: `proxmox_default_lxc_template`
+- Network: `proxmox_default_ip_prefix`, `proxmox_default_cidr`, `proxmox_default_gateway`
 - SSH: `proxmox_host`, `proxmox_ssh_user`, `proxmox_ssh_password`
 - Home Assistant: `homeassistant_version`
 
@@ -61,8 +62,15 @@ Provide sensitive values via environment (`TF_VAR_*`) or a local `*.auto.tfvars`
 | `proxmox_default_target_node` | string | `"pve1"` | no | Proxmox node to connect to |
 | `proxmox_default_storage` | string | `"local-lvm"` | no | Storage location for VM |
 | `proxmox_default_iso_storage` | string | `"local"` | no | Storage location for ISO files |
-| `proxmox_default_lxc_storage` | string | `"local"` | no | Proxmox default LXC storage |
-| `proxmox_default_lxc_template` | string | `"debian-12-standard_12.7-1_amd64.tar.zst"` | no | Proxmox default LXC container image |
+| `proxmox_default_ip_prefix` | string | `"192.168.1."` | no | Default IP address prefix (first three octets) |
+| `proxmox_default_cidr` | number | `24` | no | Default CIDR value for network configuration |
+| `proxmox_default_gateway` | string | `"192.168.1.1"` | no | Default gateway IP address for network configuration |
+| `proxmox_default_target_node` | string | `"pve1"` | no | Proxmox node to connect to |
+| `proxmox_default_storage` | string | `"local-lvm"` | no | Storage location for VM |
+| `proxmox_default_iso_storage` | string | `"local"` | no | Storage location for ISO files |
+| `proxmox_default_lxc_storage` | string | `"local"` | no | Proxmox default lxc container image |
+| `proxmox_default_lxc_template` | string | `"debian-12-standard_12.12-1_amd64.tar.zst"` | no | Proxmox default lxc container image |
+| `proxmox_default_lxc_storage_size` | string | `"8G"` | no | Default storage size for LXC containers |
 | `homeassistant_version` | string | `"16.0"` | no | Home Assistant version to download |
 
 ## Usage
