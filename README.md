@@ -27,14 +27,15 @@ Goal: allow quick rebuild and management of homelab infra for disaster recovery 
 - LXC container for Docker
   - Resource: `proxmox_lxc.docker_lxc`
   - VMID: `100`, hostname: `docker-lxc`
-  - Features: `fuse`, `nesting`, `mount=nfs;cifs`
-  - Rootfs: `8G` on `var.proxmox_default_storage`
-  - Network: `vmbr0`, DHCP
+  - This container is designed to host Docker applications, with necessary features enabled for containerization.
+- LXC container for Fileserver
+  - Resource: `proxmox_lxc.fileserver_lxc`
+  - VMID: `101`, hostname: `fileserver-lxc`
+  - This container is configured as a network fileserver with specific mount points for media and temporary storage.
 - Home Assistant VM on Proxmox
   - Resources: `null_resource.download_homeassistant`, `proxmox_vm_qemu.homeassistant`, `null_resource.import_disk`
-  - VMID: `333`, UEFI (OVMF), machine `q35`, VirtIO SCSI, 2 vCPU, 4GB RAM (2GB balloon)
-  - Disk: 32G on `var.proxmox_default_storage`, network `vmbr0` (DHCP)
-  - Image downloaded by version `var.homeassistant_version`, converted and imported
+  - VMID: `333`, hostname: `homeassistant-test`
+  - This VM is configured to run Home Assistant OS, with automatic download and import of the specified version.
 
 ## Configuration
 Key variables (see `vars.tf` for full list and defaults):
