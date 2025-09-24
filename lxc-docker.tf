@@ -21,13 +21,15 @@ resource "proxmox_lxc" "docker_lxc" {
 
   rootfs {
     storage = var.proxmox_default_storage
-    size    = "8G"
+    size    = var.proxmox_default_lxc_storage_size
   }
 
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "dhcp"
+    ip     = "${var.proxmox_default_ip_prefix}33/${var.proxmox_default_cidr}"
+    gw     = var.proxmox_default_gateway
+    ip6    = "dhcp"
   }
 
   lifecycle {
