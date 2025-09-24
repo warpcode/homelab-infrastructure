@@ -71,6 +71,8 @@ Provide sensitive values via environment (`TF_VAR_*`) or a local `*.auto.tfvars`
 | `proxmox_default_lxc_storage` | string | `"local"` | no | Proxmox default lxc container image |
 | `proxmox_default_lxc_template` | string | `"debian-12-standard_12.12-1_amd64.tar.zst"` | no | Proxmox default lxc container image |
 | `proxmox_default_lxc_storage_size` | string | `"8G"` | no | Default storage size for LXC containers |
+| `proxmox_default_lxc_password` | string | n/a | yes | Default password for LXC containers |
+| `proxmox_default_lxc_ssh_public_key` | string | `""` | no | SSH public key content to add to LXC containers. If empty, no public key will be configured. |
 | `homeassistant_version` | string | `"16.0"` | no | Home Assistant version to download |
 
 ## Usage

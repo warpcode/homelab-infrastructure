@@ -111,6 +111,19 @@ variable "proxmox_default_lxc_storage_size" {
   default     = "8G"
 }
 
+variable "proxmox_default_lxc_password" {
+  description = "Default password for LXC containers"
+  type        = string
+  sensitive   = true
+}
+
+
+variable "proxmox_default_lxc_ssh_public_key" {
+  description = "SSH public key content to add to LXC containers. If empty, no public key will be configured."
+  type        = string
+  default     = ""
+}
+
 # =============================================================================
 # Home Assistant Config
 # =============================================================================

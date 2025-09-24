@@ -7,13 +7,14 @@ resource "proxmox_lxc" "fileserver_lxc" {
   ostemplate = local.proxmox_default_lxc_container_template
 
   # Basic container configuration
-  unprivileged = true
-  start        = true
-  onboot       = true
-  memory       = 1024
-  swap         = 512
-  cores        = 1
-  password     = "password123"
+  unprivileged    = true
+  start           = true
+  onboot          = true
+  memory          = 1024
+  swap            = 512
+  cores           = 1
+  password        = var.proxmox_default_lxc_password
+  ssh_public_keys = var.proxmox_default_lxc_ssh_public_key
 
   rootfs {
     storage = var.proxmox_default_storage

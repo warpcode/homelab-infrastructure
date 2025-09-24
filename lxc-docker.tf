@@ -6,12 +6,14 @@ resource "proxmox_lxc" "docker_lxc" {
   hostname   = "docker-lxc"
   ostemplate = local.proxmox_default_lxc_container_template
 
-  password     = "password123"
+  password     = var.proxmox_default_lxc_password
   unprivileged = false
   start        = true
 
   cores  = 1
   memory = 2048
+
+  ssh_public_keys = var.proxmox_default_lxc_ssh_public_key
 
   features {
     fuse    = true
