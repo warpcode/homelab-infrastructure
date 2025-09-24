@@ -6,7 +6,7 @@ resource "proxmox_lxc" "docker_lxc" {
   hostname   = "docker-lxc"
   ostemplate = local.proxmox_default_lxc_container_template
 
-  # password     = "BasicLXCContainer"
+  password     = "password123"
   unprivileged = false
   start        = true
 
