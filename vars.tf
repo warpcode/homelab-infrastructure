@@ -20,12 +20,6 @@ variable "proxmox_ssh_password" {
   sensitive   = true
 }
 
-# variable "proxmox_ssh_private_key" {
-#   description = "Path to SSH private key for Proxmox server"
-#   type        = string
-#   # default     = "" # REMOVED: Provide securely via TF_VAR or .tfvars
-# }
-
 variable "proxmox_api_url" {
   description = "Proxmox API URL."
   type        = string
@@ -66,14 +60,6 @@ variable "proxmox_default_gateway" {
   type        = string
   default     = "192.168.1.1"
 }
-
-# variable "proxmox_api_token_id" {
-#     type = string
-# }
-#
-# variable "proxmox_api_token_secret" {
-#     type = string
-# }
 
 variable "proxmox_default_target_node" {
   description = "Proxmox node to connect to"
@@ -124,6 +110,18 @@ variable "proxmox_default_lxc_ssh_public_key" {
   default     = ""
 }
 
+variable "fileserver_lxc_vmid" {
+  description = "VMID for the fileserver LXC container"
+  type        = number
+  default     = 101
+}
+
+variable "fileserver_storage_prefix" {
+  description = "Storage prefix for fileserver mountpoints"
+  type        = string
+  default     = "/storage"
+}
+
 # =============================================================================
 # Home Assistant Config
 # =============================================================================
@@ -133,5 +131,3 @@ variable "homeassistant_version" {
   type        = string
   default     = "16.0"
 }
-
-## KeePass variables removed; secrets should be provided via environment or .tfvars

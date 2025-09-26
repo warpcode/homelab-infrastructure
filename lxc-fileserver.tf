@@ -2,7 +2,7 @@ resource "proxmox_lxc" "fileserver_lxc" {
   depends_on  = [null_resource.download_lxc_template]
   target_node = var.proxmox_default_target_node
 
-  vmid       = 101 # Choose a unique VMID, e.g., 101
+  vmid       = var.fileserver_lxc_vmid
   hostname   = "fileserver-lxc"
   ostemplate = local.proxmox_default_lxc_container_template
 
@@ -33,8 +33,8 @@ resource "proxmox_lxc" "fileserver_lxc" {
     key     = 0
     slot    = 0
     mp      = "/storage/ebooks"
-    storage = "/storage/ebooks" # Path on the Proxmox host
-    volume  = "/storage/ebooks"
+    storage = "${var.fileserver_storage_prefix}/ebooks"
+    volume  = "${var.fileserver_storage_prefix}/ebooks"
     backup  = false
   }
 
@@ -42,8 +42,8 @@ resource "proxmox_lxc" "fileserver_lxc" {
     key     = 1
     slot    = 1
     mp      = "/storage/emulation"
-    storage = "/storage/emulation" # Path on the Proxmox host
-    volume  = "/storage/emulation"
+    storage = "${var.fileserver_storage_prefix}/emulation"
+    volume  = "${var.fileserver_storage_prefix}/emulation"
     backup  = false
   }
 
@@ -51,8 +51,8 @@ resource "proxmox_lxc" "fileserver_lxc" {
     key     = 2
     slot    = 2
     mp      = "/storage/tmp"
-    storage = "/storage/tmp" # Path on the Proxmox host
-    volume  = "/storage/tmp"
+    storage = "${var.fileserver_storage_prefix}/tmp"
+    volume  = "${var.fileserver_storage_prefix}/tmp"
     backup  = false
   }
 
