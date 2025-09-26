@@ -31,7 +31,7 @@ resource "proxmox_lxc" "docker_lxc" {
     bridge = "vmbr0"
     ip     = "${var.proxmox_default_ip_prefix}33/${var.proxmox_default_cidr}"
     gw     = var.proxmox_default_gateway
-    ip6    = "dhcp"
+    ip6    = var.proxmox_default_lxc_ipv6_type
   }
 
   lifecycle {

@@ -110,6 +110,12 @@ variable "proxmox_default_lxc_ssh_public_key" {
   default     = ""
 }
 
+variable "proxmox_default_lxc_ipv6_type" {
+  description = "Default IPv6 type for LXC containers (e.g., 'static', 'auto', 'dhcp')."
+  type        = string
+  default     = "auto"
+}
+
 variable "fileserver_lxc_vmid" {
   description = "VMID for the fileserver LXC container"
   type        = number
