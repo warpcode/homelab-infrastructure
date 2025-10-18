@@ -128,6 +128,12 @@ variable "fileserver_storage_prefix" {
   default     = "/storage"
 }
 
+variable "tailscale_lxc_vmid" {
+  description = "VMID for the tailscale LXC container"
+  type        = number
+  default     = 102
+}
+
 # =============================================================================
 # Home Assistant Config
 # =============================================================================
