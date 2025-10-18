@@ -32,6 +32,10 @@ Goal: allow quick rebuild and management of homelab infra for disaster recovery 
   - Resource: `proxmox_lxc.fileserver_lxc`
   - VMID: `101`, hostname: `fileserver-lxc`
   - This container is configured as a network fileserver with specific mount points for media and temporary storage.
+- LXC container for Tailscale
+  - Resources: `proxmox_lxc.tailscale_lxc`, `null_resource.tailscale_lxc_config`
+  - VMID: `var.tailscale_lxc_vmid` (default 102), hostname: `tailscale`
+  - This container is configured for Tailscale VPN with custom LXC settings for TUN device access and automatic config updates.
 - Home Assistant VM on Proxmox
   - Resources: `null_resource.download_homeassistant`, `proxmox_vm_qemu.homeassistant`, `null_resource.import_disk`
   - VMID: `333`, hostname: `homeassistant-test`
@@ -73,6 +77,7 @@ Provide sensitive values via environment (`TF_VAR_*`) or a local `*.auto.tfvars`
 | `proxmox_default_lxc_storage_size` | string | `"8G"` | no | Default storage size for LXC containers |
 | `proxmox_default_lxc_password` | string | n/a | yes | Default password for LXC containers |
 | `proxmox_default_lxc_ssh_public_key` | string | `""` | no | SSH public key content to add to LXC containers. If empty, no public key will be configured. |
+| `tailscale_lxc_vmid` | number | `102` | no | VMID for the tailscale LXC container |
 | `homeassistant_version` | string | `"16.0"` | no | Home Assistant version to download |
 
 ## Usage

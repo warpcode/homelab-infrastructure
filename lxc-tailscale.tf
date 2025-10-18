@@ -1,5 +1,5 @@
 locals {
-  tailscale_config_file        = "/etc/pve/lxc/${var.tailscale_lxc_vmid}.conf"
+  tailscale_config_file         = "/etc/pve/lxc/${var.tailscale_lxc_vmid}.conf"
   tailscale_cgroup_devices_line = "lxc.cgroup2.devices.allow: c 10:200 rwm"
   tailscale_tun_mount_line      = "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file"
 }
