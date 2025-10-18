@@ -40,10 +40,18 @@ resource "proxmox_lxc" "tailscale_lxc" {
   }
 }
 
-# This null_resource appends custom LXC configuration lines to allow TUN device access for Tailscale,
-# then restarts the container to apply the changes. It runs when the LXC is created or when manually tainted.
+# This null_resource configures the Tailscale LXC container by:
+# - Appending TUN device access lines to the LXC config (idempotent)
+# - Restarting the container to apply changes
+# - Waiting for the container to be ready for commands
+# - Installing Tailscale inside the container if not already present (idempotent)
+# It runs when the LXC is created or when manually tainted.
 resource "null_resource" "tailscale_lxc_config" {
   depends_on = [proxmox_lxc.tailscale_lxc]
+
+  # triggers = {
+  #   always_run = timestamp()
+  # }
 
   provisioner "remote-exec" {
     connection {
@@ -56,7 +64,9 @@ resource "null_resource" "tailscale_lxc_config" {
     inline = [
       "grep -Fxq '${local.tailscale_cgroup_devices_line}' ${local.tailscale_config_file} || echo '${local.tailscale_cgroup_devices_line}' >> ${local.tailscale_config_file}",
       "grep -Fxq '${local.tailscale_tun_mount_line}' ${local.tailscale_config_file} || echo '${local.tailscale_tun_mount_line}' >> ${local.tailscale_config_file}",
-      "pct stop ${var.tailscale_lxc_vmid} || true; pct start ${var.tailscale_lxc_vmid}"
+      "pct stop ${var.tailscale_lxc_vmid} || true; pct start ${var.tailscale_lxc_vmid}",
+      "while ! pct exec ${var.tailscale_lxc_vmid} -- echo 'ready' >/dev/null 2>&1; do sleep 1; done",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'if ! command -v tailscale >/dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh && systemctl start tailscaled; fi'"
     ]
   }
 }
