@@ -1,7 +1,7 @@
 locals {
-  tailscale_config_file = "/etc/pve/lxc/${var.tailscale_lxc_vmid}.conf"
-  cgroup_devices_line   = "lxc.cgroup2.devices.allow: c 10:200 rwm"
-  tun_mount_line        = "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file"
+  tailscale_config_file        = "/etc/pve/lxc/${var.tailscale_lxc_vmid}.conf"
+  tailscale_cgroup_devices_line = "lxc.cgroup2.devices.allow: c 10:200 rwm"
+  tailscale_tun_mount_line      = "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file"
 }
 
 resource "proxmox_lxc" "tailscale_lxc" {
@@ -54,8 +54,8 @@ resource "null_resource" "tailscale_lxc_config" {
     }
 
     inline = [
-      "grep -Fxq '${local.cgroup_devices_line}' ${local.tailscale_config_file} || echo '${local.cgroup_devices_line}' >> ${local.tailscale_config_file}",
-      "grep -Fxq '${local.tun_mount_line}' ${local.tailscale_config_file} || echo '${local.tun_mount_line}' >> ${local.tailscale_config_file}",
+      "grep -Fxq '${local.tailscale_cgroup_devices_line}' ${local.tailscale_config_file} || echo '${local.tailscale_cgroup_devices_line}' >> ${local.tailscale_config_file}",
+      "grep -Fxq '${local.tailscale_tun_mount_line}' ${local.tailscale_config_file} || echo '${local.tailscale_tun_mount_line}' >> ${local.tailscale_config_file}",
       "pct stop ${var.tailscale_lxc_vmid} || true; pct start ${var.tailscale_lxc_vmid}"
     ]
   }
