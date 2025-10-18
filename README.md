@@ -77,14 +77,14 @@ Provide sensitive values via environment (`TF_VAR_*`) or a local `*.auto.tfvars`
 | `proxmox_default_ip_prefix`          | string | `"192.168.1."`                               | no        | Default IP address prefix (first three octets)                                               |
 | `proxmox_default_cidr`               | number | `24`                                         | no        | Default CIDR value for network configuration                                                 |
 | `proxmox_default_gateway`            | string | `"192.168.1.1"`                              | no        | Default gateway IP address for network configuration                                         |
-| `proxmox_default_target_node`        | string | `"pve1"`                                     | no        | Proxmox node to connect to                                                                   |
-| `proxmox_default_storage`            | string | `"local-lvm"`                                | no        | Storage location for VM                                                                      |
-| `proxmox_default_iso_storage`        | string | `"local"`                                    | no        | Storage location for ISO files                                                               |
 | `proxmox_default_lxc_storage`        | string | `"local"`                                    | no        | Proxmox default lxc container image                                                          |
 | `proxmox_default_lxc_template`       | string | `"debian-12-standard_12.12-1_amd64.tar.zst"` | no        | Proxmox default lxc container image                                                          |
 | `proxmox_default_lxc_storage_size`   | string | `"8G"`                                       | no        | Default storage size for LXC containers                                                      |
 | `proxmox_default_lxc_password`       | string | n/a                                          | yes       | Default password for LXC containers                                                          |
 | `proxmox_default_lxc_ssh_public_key` | string | `""`                                         | no        | SSH public key content to add to LXC containers. If empty, no public key will be configured. |
+| `proxmox_default_lxc_ipv6_type`      | string | `"auto"`                                     | no        | Default IPv6 type for LXC containers (e.g., 'static', 'auto', 'dhcp').                        |
+| `fileserver_lxc_vmid`                | number | `101`                                        | no        | VMID for the fileserver LXC container                                                        |
+| `fileserver_storage_prefix`          | string | `"/storage"`                                 | no        | Storage prefix for fileserver mountpoints                                                    |
 | `tailscale_lxc_vmid`                 | number | `102`                                        | no        | VMID for the tailscale LXC container                                                         |
 | `homeassistant_version`              | string | `"16.0"`                                     | no        | Home Assistant version to download                                                           |
 
