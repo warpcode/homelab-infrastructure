@@ -78,7 +78,8 @@ resource "null_resource" "tailscale_lxc_config" {
       "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'grep -Fxq \"${local.tailscale_sysctl_ipv6_source_route}\" /etc/sysctl.conf || echo \"${local.tailscale_sysctl_ipv6_source_route}\" >> /etc/sysctl.conf'",
       "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'sysctl -p /etc/sysctl.conf'",
       "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'if ! command -v curl >/dev/null 2>&1; then apt update && apt install -y curl; fi'",
-      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'if ! command -v tailscale >/dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh && systemctl start tailscaled; fi'"
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'if ! command -v tailscale >/dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh && systemctl start tailscaled; fi'",
+      "pct exec ${var.tailscale_lxc_vmid} -- tailscale set --advertise-exit-node --advertise-routes=192.168.1.0/24"
     ]
   }
 }
