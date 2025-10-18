@@ -1,7 +1,11 @@
 locals {
-  tailscale_config_file         = "/etc/pve/lxc/${var.tailscale_lxc_vmid}.conf"
-  tailscale_cgroup_devices_line = "lxc.cgroup2.devices.allow: c 10:200 rwm"
-  tailscale_tun_mount_line      = "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file"
+  tailscale_config_file              = "/etc/pve/lxc/${var.tailscale_lxc_vmid}.conf"
+  tailscale_cgroup_devices_line      = "lxc.cgroup2.devices.allow: c 10:200 rwm"
+  tailscale_tun_mount_line           = "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file"
+  tailscale_sysctl_ipv4_forward      = "net.ipv4.ip_forward = 1"
+  tailscale_sysctl_ipv6_forward      = "net.ipv6.conf.all.forwarding = 1"
+  tailscale_sysctl_ipv4_source_route = "net.ipv4.conf.all.accept_source_route = 1"
+  tailscale_sysctl_ipv6_source_route = "net.ipv6.conf.all.accept_source_route = 1"
 }
 
 resource "proxmox_lxc" "tailscale_lxc" {
@@ -44,6 +48,8 @@ resource "proxmox_lxc" "tailscale_lxc" {
 # - Appending TUN device access lines to the LXC config (idempotent)
 # - Restarting the container to apply changes
 # - Waiting for the container to be ready for commands
+# - Configuring sysctl for IP forwarding (idempotent)
+# - Installing curl if not present (idempotent)
 # - Installing Tailscale inside the container if not already present (idempotent)
 # It runs when the LXC is created or when manually tainted.
 resource "null_resource" "tailscale_lxc_config" {
@@ -66,6 +72,12 @@ resource "null_resource" "tailscale_lxc_config" {
       "grep -Fxq '${local.tailscale_tun_mount_line}' ${local.tailscale_config_file} || echo '${local.tailscale_tun_mount_line}' >> ${local.tailscale_config_file}",
       "pct stop ${var.tailscale_lxc_vmid} || true; pct start ${var.tailscale_lxc_vmid}",
       "while ! pct exec ${var.tailscale_lxc_vmid} -- echo 'ready' >/dev/null 2>&1; do sleep 1; done",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'grep -Fxq \"${local.tailscale_sysctl_ipv4_forward}\" /etc/sysctl.conf || echo \"${local.tailscale_sysctl_ipv4_forward}\" >> /etc/sysctl.conf'",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'grep -Fxq \"${local.tailscale_sysctl_ipv6_forward}\" /etc/sysctl.conf || echo \"${local.tailscale_sysctl_ipv6_forward}\" >> /etc/sysctl.conf'",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'grep -Fxq \"${local.tailscale_sysctl_ipv4_source_route}\" /etc/sysctl.conf || echo \"${local.tailscale_sysctl_ipv4_source_route}\" >> /etc/sysctl.conf'",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'grep -Fxq \"${local.tailscale_sysctl_ipv6_source_route}\" /etc/sysctl.conf || echo \"${local.tailscale_sysctl_ipv6_source_route}\" >> /etc/sysctl.conf'",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'sysctl -p /etc/sysctl.conf'",
+      "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'if ! command -v curl >/dev/null 2>&1; then apt update && apt install -y curl; fi'",
       "pct exec ${var.tailscale_lxc_vmid} -- bash -c 'if ! command -v tailscale >/dev/null 2>&1; then curl -fsSL https://tailscale.com/install.sh | sh && systemctl start tailscaled; fi'"
     ]
   }
